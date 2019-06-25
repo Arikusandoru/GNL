@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddallas <ddallas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/21 14:50:34 by ddallas           #+#    #+#             */
-/*   Updated: 2019/06/25 18:29:11 by ddallas          ###   ########.fr       */
+/*   Created: 2019/05/22 15:51:31 by ddallas           #+#    #+#             */
+/*   Updated: 2019/05/22 15:56:05 by ddallas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 1024
+#include "libft.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
-# include <fcntl.h>
-# include "libft/libft.h"
-
-typedef	struct		s_gnl
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	unsigned char	content[BUFF_SIZE];
-	struct s_list	*next;
-}					t_gnl;
+	unsigned int	i;
+	char			*newstr;
 
-int		get_next_line(const int fd, char **line);
-
-#endif
+	i = 0;
+	if (s && f)
+	{
+		while (s[i])
+			i++;
+		if (!(newstr = (char*)malloc(sizeof(char) * (i + 1))))
+			return (NULL);
+		i = 0;
+		while (s[i])
+		{
+			newstr[i] = f(i, s[i]);
+			i++;
+		}
+		newstr[i] = '\0';
+		return (newstr);
+	}
+	return (NULL);
+}

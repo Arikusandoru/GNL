@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddallas <ddallas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/21 14:50:34 by ddallas           #+#    #+#             */
-/*   Updated: 2019/06/25 18:29:11 by ddallas          ###   ########.fr       */
+/*   Created: 2019/05/24 14:59:33 by ddallas           #+#    #+#             */
+/*   Updated: 2019/06/01 14:50:32 by ddallas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 1024
+#include "libft.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
-# include <fcntl.h>
-# include "libft/libft.h"
-
-typedef	struct		s_gnl
+void	ft_putnbr(int n)
 {
-	unsigned char	content[BUFF_SIZE];
-	struct s_list	*next;
-}					t_gnl;
-
-int		get_next_line(const int fd, char **line);
-
-#endif
+	if (n >= 10 || n <= -10)
+	{
+		ft_putnbr(n / 10);
+		ft_putchar((n % 10) * (-1 + 2 * (n > 0)) + '0');
+	}
+	else
+	{
+		if (n < 0)
+			ft_putchar('-');
+		ft_putchar((n % 10) * (-1 + 2 * (n > 0)) + '0');
+	}
+}
